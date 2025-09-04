@@ -22,9 +22,9 @@ struct Segment: Identifiable {
     
     func getBranchConfig(parent:Segment) -> BranchConfig {
         let startRatio = self.start.getDistance(to:parent.start) / parent.length
-        let startAngle = atan2f(self.start.x-parent.start.x,self.start.y-parent.start.y)-parent.direction
+        let startAngle = parent.direction - atan2f(Float(self.start.x - parent.start.x),Float(self.start.y - parent.start.y))
         let endRatio = self.end.getDistance(to:parent.start) / parent.length
-        let endAngle = atan2f(self.end.x-parent.start.x,self.end.y-parent.start.y)-parent.direction
+        let endAngle = parent.direction - atan2f(Float(self.end.x-parent.start.x),Float(self.end.y-parent.start.y))
 
         return BranchConfig(start: (CGFloat(startRatio),CGFloat(startAngle)),
         end: (CGFloat(endRatio),CGFloat(endAngle)))
