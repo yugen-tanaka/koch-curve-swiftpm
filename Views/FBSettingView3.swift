@@ -3,7 +3,7 @@ import Foundation
 
 struct FBSettingView3: View {
     @Environment(\.dismiss) var dismiss
-    @State private var segments: [Segment] = []
+    @Binding var segments: [Segment]
     @Binding var branchConfigs: [BranchConfig]
     
     @GestureState private var location: CGPoint?
@@ -125,6 +125,11 @@ struct FBSettingView3: View {
                     , including: .all
                 )
                 
+            }
+            Button {
+                segments.removeAll()
+            } label: {
+                Label("Reset", systemImage: "arrow.clockwise")
             }
         }
     }

@@ -3,7 +3,7 @@ import SwiftUI
 struct FractalBranchView: View {
     @State private var isShowSetting = false
     
-    @State private var segments2: [(CGPoint, CGPoint)] = [(CGPoint.zero, CGPoint.zero)]
+    @State private var settingSegments: [Segment] = []
     @State private var segments: [(CGPoint, CGPoint)] = [(CGPoint.zero, CGPoint.zero)]
     @State private var generation = 1
     @State private var branchConfigs: [BranchConfig] = [
@@ -13,6 +13,7 @@ struct FractalBranchView: View {
         BranchConfig(start: (0.4, -0.1), end: (0.8, -0.4)),
         BranchConfig(start: (0.4, -0.1), end: (0.8, 0.5))
     ]
+    @State private var color: Color = .green
     
     var body: some View {
         NavigationStack {
@@ -26,7 +27,7 @@ struct FractalBranchView: View {
                         
                     }
                     .stroke(lineWidth: 1.0)
-                    .foregroundStyle(Color.green)
+                    .foregroundStyle(color)
 //                    ForEach(segments, id: \.0.x) { segment in
 //                    Circle()
 //                            .frame(width: 10.0, height: 10.0)
@@ -36,10 +37,7 @@ struct FractalBranchView: View {
                 }
               
                 VStack {
-                    Button("make fractal branch") {
-                        segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
-                    }
-                    .padding(10.0)
+                    
                     Stepper("generation: \(generation)", value: $generation,in: 1...7, onEditingChanged: { _ in
                         segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
                     })
@@ -48,6 +46,10 @@ struct FractalBranchView: View {
                         }
             }
             .toolbar {
+                ToolbarItem {
+                    ColorPicker("Color", selection: $color)
+                        .labelsHidden()
+                }
                 ToolbarItem {
                     Button {
                         isShowSetting.toggle()
@@ -61,7 +63,7 @@ struct FractalBranchView: View {
             print("dismiss")
             print(branchConfigs)
         } content: {
-            FBSettingView3( branchConfigs: $branchConfigs)
+            FBSettingView3(segments: $settingSegments, branchConfigs: $branchConfigs )
         }
     }
 }

@@ -16,6 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "Koch Curve",
             targets: ["AppModule"],
+            teamIdentifier: "446S34ACXW",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .sparkle),
