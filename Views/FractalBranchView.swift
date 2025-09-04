@@ -40,7 +40,7 @@ struct FractalBranchView: View {
                         segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
                     }
                     .padding(10.0)
-                    Stepper("generation: \(generation)", value: $generation,in: 1...5, onEditingChanged: { _ in
+                    Stepper("generation: \(generation)", value: $generation,in: 1...7, onEditingChanged: { _ in
                         segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
                     })
                         
