@@ -4,15 +4,21 @@ import Foundation
 struct FBSettingView3: View {
     @Environment(\.dismiss) var dismiss
     @State private var segments: [Segment] = []
-    @Binding var resultSegments: [Segment]
+    @Binding var branchConfigs: [BranchConfig]
     
     @GestureState private var location: CGPoint?
     @State private var startPoint: CGPoint?
+    @State private var parentSegment: Segment?
     
     
     var body: some View {
         VStack {
             Button("Close") {
+                if let unwrapedParentSegment = parentSegment {
+                    branchConfigs = segments.map { $0.getBranchConfig(parent: unwrapedParentSegment)}
+                } else {
+                    print("parentSegmentがnilです!")
+                }
                 dismiss()
             }
             GeometryReader { geo in 
@@ -22,6 +28,16 @@ struct FBSettingView3: View {
                 }
                 .stroke(lineWidth: 2.0)
                 .foregroundStyle(.tertiary)
+                .task {
+                    do {
+                        try await Task.sleep(nanoseconds: 10000000)
+                        parentSegment = Segment(startX: CGFloat.zero, startY: geo.size.height/2.0, endX: geo.size.width, endY: geo.size.height/2.0)
+                        
+                    } catch {
+                        print("error")
+                    }
+                    
+                }
                 ZStack {
                     
                     ForEach(0..<segments.count, id: \.self) { i in 
