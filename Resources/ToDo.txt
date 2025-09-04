@@ -1,0 +1,9 @@
+やりたいこと
+パターン生成ごとまたはジェネレーションごとにランダム性を追加
+点の追加(6個まで)
+フリーズしないように制限(savePattern()へ)
+
+Fractal Branch
+FBsettingの[Segment]からratio,angleの情報のPolarSegmentを生成。
+PolarSegmentから描画用の(CGPoint, CGPoint)を生成
+
