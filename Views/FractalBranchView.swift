@@ -43,11 +43,11 @@ struct FractalBranchView: View {
               
                 VStack {
                     Button("make fractal branch") {
-                        segments2 = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), pointsConfig: pointsConfig, connection: connection, generation: generation)
+                        segments2 = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: segments.map{$0.getBranchConfig()}, generation: generation)
                     }
                     .padding(10.0)
                     Stepper("generation: \(generation)", value: $generation,in: 1...8, onEditingChanged: { _ in
-                        segments2 = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), pointsConfig: pointsConfig,connection: connection, generation: generation)
+                        segments2 = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: segments.map{$0.getBranchConfig()}, generation: generation)
                     })
                         
                             

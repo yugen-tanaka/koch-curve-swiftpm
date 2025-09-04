@@ -16,4 +16,8 @@ struct Segment: Identifiable {
         self.start = CGPoint(x: startX, y: startY)
         self.end = CGPoint(x: endX, y: endY)
     }
+    
+    func getBranchConfig() -> BranchConfig {
+        
+    }
 }
