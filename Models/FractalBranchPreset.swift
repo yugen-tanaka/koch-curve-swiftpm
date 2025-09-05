@@ -36,12 +36,19 @@ struct FractalBranchPreset: Identifiable {
                                     ((0.666,0.0),(1.0,0.0))
                                 ]
             .map { BranchConfig(start: $0.0, end: $0.1) }),
-        FractalBranchPreset(name: "カントールの塵", branchConfigs:
+        FractalBranchPreset(name: "カントール集合", branchConfigs:
                                 [
                                     ((0.0,0.0),(0.333,0.0)),
                                     ((0.6666,0.0),(1.0,0.0))
                                 ]
             .map { BranchConfig(start: $0.0, end: $0.1) }),
+    FractalBranchPreset(name: "三角形", branchConfigs:
+                            [
+                                ((0.5773,CGFloat.pi/6.0),(0.2886,-CGFloat.pi/6.0)),
+                                ((0.2886,-CGFloat.pi/6.0),(0.7637,-0.19)),
+                                ((0.7637,-0.19),(0.5773,CGFloat.pi/6.0))
+                            ]
+        .map { BranchConfig(start: $0.0, end: $0.1) }),
         FractalBranchPreset(name: "花火", branchConfigs:
                                 [
                                     ((0.4,0.0),(0.18,0.0)),
@@ -83,14 +90,7 @@ struct FractalBranchPreset: Identifiable {
                                     ((0.0,0.0),(0.707,-CGFloat.pi/4.0)),
                                     ((1.0,0.0),(0.707,-CGFloat.pi/4.0))
                                 ]
-            .map { BranchConfig(start: $0.0, end: $0.1) }),
-        FractalBranchPreset(name: "シェルピンスキーの三角形", branchConfigs:
-                                [
-                                    ((0.0,0.0),(0.0,0.0)),
-                                    ((1.0,0.0),(0.0,0.0))
-                                ]
-            .map { BranchConfig(start: $0.0, end: $0.1) }),
-        
+            .map { BranchConfig(start: $0.0, end: $0.1) })
     ]
     
 }
