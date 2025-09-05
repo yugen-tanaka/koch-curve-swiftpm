@@ -62,6 +62,7 @@ struct FractalBranchView: View {
             .navigationTitle("Fractal Branch")
         }
         .sheet(isPresented: $isShowSetting) {
+            generation = 1
             if branchConfigs.count >= 8 {
                 generationMax = 5
             } else if branchConfigs.count >= 6 {
