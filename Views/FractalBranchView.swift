@@ -6,6 +6,7 @@ struct FractalBranchView: View {
     @State private var settingSegments: [Segment] = []
     @State private var segments: [(CGPoint, CGPoint)] = [(CGPoint.zero, CGPoint.zero)]
     @State private var generation = 1
+    @State private var generationMax = 5
     @State private var branchConfigs: [BranchConfig] = [
         BranchConfig(start: (0.0, 0.0), end: (0.3, 0.1)),
         BranchConfig(start: (0.3, 0.1), end: (0.4, -0.1)),
@@ -38,7 +39,7 @@ struct FractalBranchView: View {
               
                 VStack {
                     
-                    Stepper("generation: \(generation)", value: $generation,in: 1...7, onEditingChanged: { _ in
+                    Stepper("generation: \(generation)", value: $generation,in: 1...generationMax, onEditingChanged: { _ in
                         segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
                     })
                         
@@ -60,8 +61,15 @@ struct FractalBranchView: View {
             }
         }
         .sheet(isPresented: $isShowSetting) {
-            print("dismiss")
-            print(branchConfigs)
+            if branchConfigs.count >= 8 {
+                generationMax = 5
+            } else if branchConfigs.count >= 6 {
+                generationMax = 6
+            } else if branchConfigs.count >= 4 {
+                generationMax = 7
+            } else {
+                generationMax = 8
+            }
         } content: {
             FBSettingView3(segments: $settingSegments, branchConfigs: $branchConfigs )
         }
