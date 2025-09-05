@@ -7,7 +7,9 @@ class FractalBranch {
         Array(0..<generation).forEach { i in
             var segments2: [(CGPoint, CGPoint)] = []
             for segment in segments {
-                segments2.append(contentsOf: makePattern(initialSegment: segment,branchConfigs:branchConfigs ))
+                
+                    segments2.append(contentsOf: makePattern(initialSegment: segment,branchConfigs:branchConfigs ))
+                
             }
             segments = segments2
         }
