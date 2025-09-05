@@ -59,6 +59,7 @@ struct FractalBranchView: View {
                     }
                 }
             }
+            .navigationTitle("Fractal Branch")
         }
         .sheet(isPresented: $isShowSetting) {
             if branchConfigs.count >= 8 {
@@ -67,8 +68,10 @@ struct FractalBranchView: View {
                 generationMax = 6
             } else if branchConfigs.count >= 4 {
                 generationMax = 7
-            } else {
+            } else if branchConfigs.count >= 3 {
                 generationMax = 8
+            } else {
+                generationMax = 10
             }
         } content: {
             FBSettingView3(segments: $settingSegments, branchConfigs: $branchConfigs )

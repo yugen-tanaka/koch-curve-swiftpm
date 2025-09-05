@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NavigationHome: View {
-    @State private var navigationSelection: NavigationState.ID? 
+    @State private var navigationSelection: NavigationState.ID? = NavigationState.fractalBranch.id
     private let navigationSelections: [NavigationState] = [.kochCurve, .fractalBranch]
     enum NavigationState: CaseIterable, Identifiable {
         case kochCurve, fractalBranch

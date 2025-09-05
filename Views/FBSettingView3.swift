@@ -10,17 +10,12 @@ struct FBSettingView3: View {
     @State private var startPoint: CGPoint?
     @State private var parentSegment: Segment?
     
+    @State private var presets = FractalBranchPreset.presets
     
     var body: some View {
+        NavigationStack {
         VStack {
-            Button("Close") {
-                if let unwrapedParentSegment = parentSegment {
-                    branchConfigs = segments.map { $0.getBranchConfig(parent: unwrapedParentSegment)}
-                } else {
-                    print("parentSegmentがnilです!")
-                }
-                dismiss()
-            }
+            
             GeometryReader { geo in 
                 Path { path in
                     path.move(to: CGPoint(x: 0, y: geo.size.height/2))  
@@ -50,7 +45,6 @@ struct FBSettingView3: View {
                         .foregroundStyle(.secondary)
                         .onLongPressGesture {
                             segments.remove(at: i)
-                            
                         }
                         
                         Circle()
@@ -71,7 +65,7 @@ struct FBSettingView3: View {
                             )
                         
                         
-                        Circle()
+                        Rectangle()
                             .frame(width: 15.0, height: 15.0)
                             .foregroundStyle(.green)
                             .position(segments[i].end)
@@ -126,12 +120,42 @@ struct FBSettingView3: View {
                 )
                 
             }
-            Button {
-                segments.removeAll()
-            } label: {
-                Label("Reset", systemImage: "arrow.clockwise")
+            
+        }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Close") {
+                    if let unwrapedParentSegment = parentSegment {
+                        branchConfigs = segments.map { $0.getBranchConfig(parent: unwrapedParentSegment)}
+                    } else {
+                        print("parentSegmentがnilです!")
+                    }
+                    dismiss()
+                }
+                .disabled(segments.isEmpty)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button("Clear All") {
+                    segments.removeAll()
+                }
+                .disabled(segments.isEmpty)
+                .foregroundStyle(.red)
+                
+            }
+            ToolbarItem(placement: .topBarLeading) {
+                Menu("Presets") {
+                    ForEach(presets) { preset in
+                        Button(preset.name) {
+                            if let parent = parentSegment {
+                                segments = preset.getSegments(parent: parent)
+                            }
+                        }
+                    }
+                }
             }
         }
+        }
+        
     }
 }
 extension FBSettingView3 {
@@ -145,7 +169,10 @@ extension FBSettingView3 {
             .sorted(by: { $0.getDistance(to: currentP) < $1.getDistance(to: currentP) })
             .first
     }
- 
+}
+
+extension FBSettingView3 {
+    
 }
 
 
