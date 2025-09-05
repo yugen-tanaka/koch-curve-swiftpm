@@ -18,12 +18,16 @@ class FractalBranch {
     
     private func makePattern(initialSegment: (start: CGPoint, end: CGPoint), branchConfigs:[BranchConfig])-> [(CGPoint, CGPoint)] {
 
-        branchConfigs.map { 
-            (
-                initialSegment.end.scaleRotated(ratio: $0.start.ratio, angle: $0.start.angle, centerPoint: initialSegment.start),
-                initialSegment.end.scaleRotated(ratio: $0.end.ratio, angle: $0.end.angle, centerPoint: initialSegment.start)
-            )
-            }
+        branchConfigs.map {(
+                initialSegment.end.scaleRotated(
+                    ratio: $0.start.ratio,
+                    angle: $0.start.angle,
+                    centerPoint: initialSegment.start),
+                initialSegment.end.scaleRotated(
+                    ratio: $0.end.ratio,
+                    angle: $0.end.angle,
+                    centerPoint: initialSegment.start)
+            )}
         
         
     }

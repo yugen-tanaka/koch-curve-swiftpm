@@ -15,7 +15,7 @@ class Model: ObservableObject {
     @Published var angle3: Float
     
     
-    init(r1: Float = 0.333, r2: Float = 0.577, r3: Float = 0.666, angle1: Float = 0.0, angle2: Float = Float.pi/6.0, angle3: Float = 0.0) {
+    init(r1: Float = 0.333, r2: Float = 0.577, r3: Float = 0.666, angle1: Float = 0.0, angle2: Float = -Float.pi/6.0, angle3: Float = 0.0) {
         self.r1 = r1
         self.r2 = r2
         self.r3 = r3
@@ -27,7 +27,7 @@ class Model: ObservableObject {
     func generateKochCurve(startPoint: CGPoint, endPoint: CGPoint) {
         let koch = Koch()
         
-        self.points = koch.makeKochCurve(startPoint: startPoint, endPoint: endPoint, r1: CGFloat(r1), r2: CGFloat(r2), r3: CGFloat(r3), angle1: -CGFloat(angle1), angle2: -CGFloat(angle2), angle3: -CGFloat(angle3), generation: generation)
+        self.points = koch.makeKochCurve(startPoint: startPoint, endPoint: endPoint, r1: CGFloat(r1), r2: CGFloat(r2), r3: CGFloat(r3), angle1: CGFloat(angle1), angle2: CGFloat(angle2), angle3: CGFloat(angle3), generation: generation)
         
     }
     
@@ -47,7 +47,7 @@ class Model: ObservableObject {
         print(startPoint, endPoint)
         let distanceStartEnd = getDistance(from: endPoint, to: startPoint)
         print(distanceStartEnd)
-        var angles: [Float] = []
+        //var angles: [Float] = []
         
         r1 = getDistance(from: settingPoints[1], to: startPoint) / distanceStartEnd
         r2 = getDistance(from: settingPoints[2], to: startPoint) / distanceStartEnd
@@ -56,21 +56,21 @@ class Model: ObservableObject {
         let a3 = getDistance(from: settingPoints[3], to: startPoint)
         let b3 = getDistance(from: endPoint, to: settingPoints[3])
         angle3 = acosf((pow(a3, 2.0)  + pow(distanceStartEnd, 2.0) - pow(b3, 2.0)) / 2.0 / a3 / distanceStartEnd)
-        if settingPoints[3].y > startPoint.y {
+        if settingPoints[3].y < startPoint.y {
             angle3 *= -1.0
         }
         
         let a2 = getDistance(from: settingPoints[2], to: startPoint)
         let b2 = getDistance(from: endPoint, to: settingPoints[2])
         angle2 = acosf((pow(a2, 2.0)  + pow(distanceStartEnd, 2.0) - pow(b2, 2.0)) / 2.0 / a2 / distanceStartEnd)
-        if settingPoints[2].y > startPoint.y {
+        if settingPoints[2].y < startPoint.y {
             angle2 *= -1.0
         }
         
         let a1 = getDistance(from: settingPoints[1], to: startPoint)
         let b1 = getDistance(from: endPoint, to: settingPoints[1])
         angle1 = acosf((pow(a1, 2.0)  + pow(distanceStartEnd, 2.0) - pow(b1, 2.0)) / 2.0 / a1 / distanceStartEnd)
-        if settingPoints[1].y > startPoint.y {
+        if settingPoints[1].y < startPoint.y {
             angle1 *= -1.0
         }
     }
