@@ -90,12 +90,34 @@ struct FractalBranchPreset: Identifiable {
                                     ((0.0,0.0),(0.707,-CGFloat.pi/4.0)),
                                     ((1.0,0.0),(0.707,-CGFloat.pi/4.0))
                                 ]
-            .map { BranchConfig(start: $0.0, end: $0.1) }),FractalBranchPreset(name: "レヴィ曲線", branchConfigs:
+            .map { BranchConfig(start: $0.0, end: $0.1) }),
+            FractalBranchPreset(name: "レヴィ曲線", branchConfigs:
                                 [
                                     ((0.0,0.0),(0.707,CGFloat.pi/4.0)),
                                     ((0.707,CGFloat.pi/4.0),(1.0,0.0))
                                 ]
+            .map { BranchConfig(start: $0.0, end: $0.1) }),
+            FractalBranchPreset(name: "六角形", branchConfigs:
+                                [
+                                    ((0.166,0.0),(0.577,-CGFloat.pi/6.0)),
+                                    ((0.577,-CGFloat.pi/6.0),(0,726,-0.408)),
+                                    ((0,726,-0.408),(0.833,0)),
+                                    ((0.833,0),(0,726,0.408)),
+                                    ((0,726,0.408),(0.577,CGFloat.pi/6.0)),
+                                    ((0.577,CGFloat.pi/6.0),(0.166,0.0)),
+                                    
+                                ]
+            .map { BranchConfig(start: $0.0, end: $0.1) }),
+            FractalBranchPreset(name: "四角形", branchConfigs:
+                                [
+                                    ((0.353,-0.785),(0.79,-0.321)),
+                                    ((0.79,-0.321),(0.353,0.785)),
+                                    ((0.353,0.785),(0.79,0.321)),
+                                    ((0.79,0.321),(0.353,-0.785))
+                                ]
             .map { BranchConfig(start: $0.0, end: $0.1) })
+            
+
             
     ]
 
