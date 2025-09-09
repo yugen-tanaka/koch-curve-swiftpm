@@ -15,6 +15,9 @@ struct FractalBranchView: View {
         BranchConfig(start: (0.4, -0.1), end: (0.8, 0.5))
     ]
     @State private var color: Color = .green
+    @State private var  currentScale = 1.0
+    
+    private let scales = [0.25,0.5,0.75,1.0,1.25,1.5,2.0]
     
     var body: some View {
         NavigationStack {
@@ -40,7 +43,7 @@ struct FractalBranchView: View {
                 VStack {
                     
                     Stepper("generation: \(generation)", value: $generation,in: 1...generationMax, onEditingChanged: { _ in
-                        segments = FractalBranch().makeFractalBranch(start: CGPoint(x: 0.0, y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width, y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
+                        segments = FractalBranch().makeFractalBranch(start: CGPoint(x: geo.size.width * ((1.0-currentScale)/2.0), y: geo.size.height / 2.0), end: CGPoint(x: geo.size.width * (0.5 + currentScale / 2.0), y: geo.size.height / 2.0), branchConfigs: branchConfigs, generation: generation)
                     })
                         
                             
@@ -56,6 +59,15 @@ struct FractalBranchView: View {
                         isShowSetting.toggle()
                     } label: {
                         Image(systemName: "gear")
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu(String(Int(currentScale * 100))+"%") {
+                        ForEach(scales, id: \.self) { scale in
+                            Button(String(Int(scale * 100))+"%") {
+                                currentScale = scale
+                            }
+                        }
                     }
                 }
             }
