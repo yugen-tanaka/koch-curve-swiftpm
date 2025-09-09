@@ -111,6 +111,14 @@ struct FractalBranchPreset: Identifiable {
             FractalBranchPreset(name: "四角形", branchConfigs:
                                 [
                                     ((0.353,-0.785),(0.79,-0.321)),
+                                    ((0.79,-0.321),(0.79,0.321)),
+                                    ((0.79,0.321),(0.353,0.785)),
+                                    ((0.353,0.785),(0.353,-0.785))
+                                ]
+            .map { BranchConfig(start: $0.0, end: $0.1) }),
+            FractalBranchPreset(name: "砂時計", branchConfigs:
+                                [
+                                    ((0.353,-0.785),(0.79,-0.321)),
                                     ((0.79,-0.321),(0.353,0.785)),
                                     ((0.353,0.785),(0.79,0.321)),
                                     ((0.79,0.321),(0.353,-0.785))
